@@ -1,0 +1,200 @@
+# AWS KMS Key Policy
+
+## Overview
+
+This document describes the AWS Key Management Service (KMS) policy used within the AWS Secure Financial Data Management System.
+
+AWS KMS is responsible for protecting sensitive banking data through centralized encryption key management. The service enables encryption of customer information, financial records, transaction data, audit logs, and stored documents while supporting regulatory compliance and security best practices.
+
+The KMS key is integrated with multiple AWS services to ensure data remains encrypted both at rest and during processing operations.
+
+---
+
+## Purpose
+
+The primary objectives of the KMS implementation are:
+
+- Protect sensitive financial information
+- Centralize encryption key management
+- Enforce least-privilege access controls
+- Support compliance requirements
+- Secure data storage and processing workflows
+- Enable encrypted audit logging
+
+---
+
+## Services Using the KMS Key
+
+### Amazon S3
+
+Amazon S3 uses AWS KMS to encrypt financial documents such as:
+
+- Customer statements
+- Banking reports
+- Account documentation
+- Compliance records
+
+Encryption ensures that stored documents remain protected against unauthorized access.
+
+### Amazon DynamoDB
+
+DynamoDB stores customer profiles and transaction records.
+
+AWS KMS encrypts the data stored within DynamoDB tables to protect customer information and financial records.
+
+### Amazon Aurora
+
+Aurora stores relational banking data requiring strong consistency and high availability.
+
+KMS encryption protects database storage, automated backups, snapshots, and replicas.
+
+### AWS Lambda
+
+Lambda functions use the KMS key to encrypt and decrypt sensitive information during application processing.
+
+Examples include:
+
+- Transaction processing
+- Customer profile access
+- Fraud detection workflows
+- Account management operations
+
+### AWS CloudTrail
+
+CloudTrail integrates with AWS KMS to secure audit logs and maintain the integrity of compliance-related records.
+
+---
+
+## Key Policy Components
+
+### Root Account Ownership
+
+The AWS account root principal maintains ownership of the KMS key and retains full administrative control.
+
+This ensures the organization can always manage or recover access to the encryption key.
+
+### Key Administration
+
+Dedicated administrators manage:
+
+- Key rotation
+- Key lifecycle management
+- Access reviews
+- Policy updates
+- Compliance requirements
+
+Administrative permissions are separated from operational permissions to reduce risk.
+
+### Application Access
+
+Application roles receive only the permissions required to:
+
+- Encrypt data
+- Decrypt data
+- Generate encryption keys
+- Retrieve key metadata
+
+This follows the principle of least privilege.
+
+### Grant Management
+
+Grant management permissions allow AWS services to securely use the KMS key when required by integrated resources.
+
+Examples include:
+
+- S3 encryption operations
+- Database encryption
+- Service-managed encryption workflows
+
+### Audit Log Protection
+
+CloudTrail uses the KMS key to secure audit logs that support:
+
+- Regulatory compliance
+- Security investigations
+- Incident response activities
+- Change tracking
+
+---
+
+## Security Principles Applied
+
+### Least Privilege
+
+Only approved identities and services receive access to the encryption key.
+
+Permissions are limited to the minimum actions required for business operations.
+
+### Separation of Duties
+
+Administrative responsibilities are separated from application-level access.
+
+This reduces the risk of unauthorized key management activities.
+
+### Data Confidentiality
+
+All sensitive banking information is encrypted using AWS KMS.
+
+Encryption helps protect customer data from unauthorized disclosure.
+
+### Auditability
+
+All KMS activities are logged through AWS CloudTrail.
+
+This provides visibility into key usage and administrative actions.
+
+### High Availability
+
+AWS KMS is a managed service designed to support highly available encryption operations within AWS environments.
+
+---
+
+## Compliance Alignment
+
+### PCI DSS
+
+AWS KMS supports PCI DSS requirements by:
+
+- Encrypting sensitive financial data
+- Protecting cardholder-related information
+- Supporting secure key management practices
+
+### GLBA
+
+KMS helps safeguard customer financial information through strong encryption controls and controlled access management.
+
+### SOX
+
+KMS supports SOX compliance through:
+
+- Audit logging
+- Change tracking
+- Access control
+- Data integrity protections
+
+---
+
+## Security Benefits
+
+The implementation of AWS KMS provides:
+
+- Centralized encryption key management
+- Strong protection of financial data
+- Controlled access to cryptographic operations
+- Secure integration with AWS services
+- Improved compliance readiness
+- Reduced risk of unauthorized data exposure
+
+---
+
+## Architecture Integration
+
+Within the Secure Financial Data Management System, AWS KMS serves as the encryption foundation for:
+
+- Amazon S3
+- Amazon DynamoDB
+- Amazon Aurora
+- AWS Lambda
+- AWS CloudTrail
+
+By integrating AWS KMS across storage, processing, and monitoring services, the architecture maintains a consistent security model while protecting sensitive banking information throughout its lifecycle.
