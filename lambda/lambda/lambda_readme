@@ -1,0 +1,66 @@
+# AWS Lambda Function
+
+## Overview
+
+This Lambda function processes banking application requests for the Secure Financial Data Management System.
+
+The function supports three main workflows:
+
+- KYC workflow initiation
+- Transaction record creation
+- Customer statement generation
+
+## Supported Actions
+
+### KYC
+
+Starts an AWS Step Functions workflow for customer verification.
+
+### Transaction
+
+Creates a transaction record and stores it in Amazon DynamoDB.
+
+### Statement
+
+Queries customer transaction records, generates a statement, and stores it in Amazon S3.
+
+## AWS Services Used
+
+- AWS Lambda
+- Amazon DynamoDB
+- Amazon S3
+- AWS Step Functions
+- Amazon CloudWatch
+- AWS IAM
+- AWS KMS
+
+## Security Notes
+
+This code has been sanitized for public GitHub use.
+
+The following values were replaced with placeholders:
+
+- AWS Account ID
+- Step Functions ARN
+- S3 bucket name
+- Internal resource names
+
+## Security Controls
+
+- IAM role-based access
+- Least-privilege permissions
+- CloudWatch logging
+- KMS-encrypted storage
+- S3 protected document storage
+- DynamoDB encrypted tables
+
+## Example Request
+
+```json
+{
+  "action": "transaction",
+  "customerId": "CUST001",
+  "amount": 250.00,
+  "type": "deposit",
+  "description": "Payroll deposit"
+}
