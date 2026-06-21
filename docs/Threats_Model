@@ -1,0 +1,228 @@
+# Threat Model
+
+## Overview
+
+This document identifies potential security threats against the Secure Financial Data Management System and describes the controls implemented to reduce risk.
+
+The objective is to protect customer information, financial records, authentication systems, and cloud infrastructure from unauthorized access, data breaches, and service disruptions.
+
+---
+
+# Assets Requiring Protection
+
+The following assets are considered critical:
+
+## Customer Data
+
+- Customer profiles
+- Personally identifiable information (PII)
+- Account information
+
+## Financial Records
+
+- Transaction histories
+- Loan information
+- Banking statements
+
+## Authentication Systems
+
+- User accounts
+- Credentials
+- MFA configurations
+
+## AWS Infrastructure
+
+- API Gateway
+- Lambda functions
+- DynamoDB tables
+- Aurora databases
+- S3 storage
+
+## Encryption Keys
+
+- AWS KMS keys
+- Data encryption keys
+
+---
+
+# Threat Scenarios
+
+## Unauthorized Access
+
+### Threat
+
+An attacker attempts to access customer information without authorization.
+
+### Potential Impact
+
+- Data breach
+- Privacy violations
+- Regulatory penalties
+
+### Security Controls
+
+- Amazon Cognito authentication
+- Multi-Factor Authentication (MFA)
+- IAM least privilege
+- Role-based access controls
+
+---
+
+## Credential Theft
+
+### Threat
+
+User credentials are stolen through phishing or credential reuse.
+
+### Potential Impact
+
+- Account compromise
+- Unauthorized transactions
+- Data exposure
+
+### Security Controls
+
+- MFA enforcement
+- Cognito authentication
+- Secure password policies
+- CloudTrail auditing
+
+---
+
+## Data Exposure
+
+### Threat
+
+Sensitive financial information is exposed through misconfigured storage resources.
+
+### Potential Impact
+
+- Customer data disclosure
+- Compliance violations
+
+### Security Controls
+
+- AWS KMS encryption
+- S3 access policies
+- IAM restrictions
+- CloudTrail monitoring
+
+---
+
+## API Abuse
+
+### Threat
+
+Attackers attempt to abuse application APIs through excessive requests or malicious inputs.
+
+### Potential Impact
+
+- Service degradation
+- Unauthorized transactions
+
+### Security Controls
+
+- API Gateway request validation
+- Authentication requirements
+- Logging and monitoring
+- Lambda-based validation logic
+
+---
+
+## Insider Threat
+
+### Threat
+
+Authorized users misuse their privileges.
+
+### Potential Impact
+
+- Unauthorized data access
+- Fraudulent activity
+
+### Security Controls
+
+- Least privilege IAM
+- CloudTrail logging
+- Activity monitoring
+- Segregation of duties
+
+---
+
+## Data Loss
+
+### Threat
+
+Accidental deletion or corruption of financial records.
+
+### Potential Impact
+
+- Loss of customer information
+- Operational disruption
+
+### Security Controls
+
+- S3 Versioning
+- Aurora backups
+- DynamoDB durability
+- Disaster recovery procedures
+
+---
+
+## Ransomware or Data Tampering
+
+### Threat
+
+Data is altered, encrypted, or deleted by malicious actors.
+
+### Potential Impact
+
+- Business interruption
+- Financial loss
+- Regulatory violations
+
+### Security Controls
+
+- Versioning
+- Backups
+- Audit logging
+- Access controls
+
+---
+
+# Security Architecture Summary
+
+The architecture applies multiple layers of protection:
+
+- Authentication through Amazon Cognito
+- Multi-Factor Authentication
+- IAM least privilege
+- AWS KMS encryption
+- HTTPS/TLS communication
+- CloudTrail auditing
+- CloudWatch monitoring
+- Backup and recovery mechanisms
+
+These controls reduce the likelihood and impact of common cloud security threats.
+
+---
+
+# Risk Assessment
+
+| Threat | Likelihood | Impact | Risk Level |
+|----------|----------|----------|----------|
+| Unauthorized Access | Medium | High | High |
+| Credential Theft | Medium | High | High |
+| Data Exposure | Medium | High | High |
+| API Abuse | Medium | Medium | Medium |
+| Insider Threat | Low | High | Medium |
+| Data Loss | Low | High | Medium |
+| Data Tampering | Low | High | Medium |
+
+---
+
+# Conclusion
+
+The Secure Financial Data Management System incorporates layered security controls designed to protect sensitive banking information while supporting scalability, compliance, and operational resilience.
+
+The combination of authentication, encryption, monitoring, auditing, and disaster recovery capabilities helps mitigate common threats faced by modern financial institutions.
