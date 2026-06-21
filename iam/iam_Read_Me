@@ -1,0 +1,222 @@
+# IAM Least Privilege Policy
+
+This document describes the IAM permissions assigned to the AWS Lambda function used in the Secure Financial Data Management System.
+
+The policy follows the principle of least privilege, ensuring the application receives only the permissions required to perform its functions.
+
+---
+
+## Purpose
+
+The Lambda function is responsible for:
+
+- Processing customer requests
+- Retrieving customer profile information
+- Managing transaction records
+- Accessing encrypted financial documents
+- Initiating business workflows
+- Generating operational logs
+- Encrypting and decrypting sensitive information
+
+---
+
+## CloudWatch Permissions
+
+```json
+{
+  "Sid": "CloudWatchLogsAccess",
+  "Effect": "Allow",
+  "Action": [
+    "logs:CreateLogGroup",
+    "logs:CreateLogStream",
+    "logs:PutLogEvents"
+  ],
+  "Resource": "*"
+}
+```
+
+### Explanation
+
+These permissions allow the Lambda function to:
+
+- Create log groups
+- Create log streams
+- Write application logs
+
+CloudWatch provides operational monitoring, troubleshooting, and audit visibility.
+
+---
+
+## DynamoDB Permissions
+
+```json
+{
+  "Sid": "DynamoDBReadWriteAccess",
+  "Effect": "Allow",
+  "Action": [
+    "dynamodb:GetItem",
+    "dynamodb:Query",
+    "dynamodb:Scan",
+    "dynamodb:DescribeTable",
+    "dynamodb:PutItem"
+  ],
+  "Resource": [
+    "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/CustomerProfiles",
+    "arn:aws:dynamodb:REGION:ACCOUNT_ID:table/TransactionRecords"
+  ]
+}
+```
+
+### Explanation
+
+These permissions allow the Lambda function to:
+
+- Retrieve customer profiles
+- Query transaction history
+- Insert transaction records
+- Validate table configuration
+
+The policy is restricted to specific DynamoDB tables and does not provide access to all DynamoDB resources.
+
+---
+
+## Amazon S3 Permissions
+
+```json
+{
+  "Sid": "S3ReadWriteAccess",
+  "Effect": "Allow",
+  "Action": [
+    "s3:GetObject",
+    "s3:ListBucket",
+    "s3:PutObject"
+  ],
+  "Resource": [
+    "arn:aws:s3:::financial-documents",
+    "arn:aws:s3:::financial-documents/*"
+  ]
+}
+```
+
+### Explanation
+
+These permissions allow the Lambda function to:
+
+- Read financial statements
+- Upload generated reports
+- List objects within the storage bucket
+
+The policy is limited to a dedicated S3 bucket used for financial documents.
+
+---
+
+## AWS Step Functions Permissions
+
+```json
+{
+  "Sid": "StepFunctionStartAccess",
+  "Effect": "Allow",
+  "Action": [
+    "states:StartExecution"
+  ],
+  "Resource": "arn:aws:states:REGION:ACCOUNT_ID:stateMachine:bank-workflow"
+}
+```
+
+### Explanation
+
+These permissions allow the Lambda function to:
+
+- Start workflow executions
+- Trigger business processes
+- Coordinate multi-step operations
+
+Example workflows include:
+
+- Customer onboarding
+- KYC verification
+- Fraud detection
+- Loan processing
+- Account updates
+
+---
+
+## AWS KMS Permissions
+
+```json
+{
+  "Sid": "KMSAccess",
+  "Effect": "Allow",
+  "Action": [
+    "kms:Encrypt",
+    "kms:Decrypt",
+    "kms:DescribeKey",
+    "kms:GenerateDataKey"
+  ],
+  "Resource": "arn:aws:kms:REGION:ACCOUNT_ID:key/KEY_ID"
+}
+```
+
+### Explanation
+
+These permissions allow the Lambda function to:
+
+- Encrypt customer information
+- Decrypt protected records
+- Generate data encryption keys
+- Access KMS-managed cryptographic services
+
+AWS KMS provides centralized key management and supports PCI DSS, GLBA, and SOX compliance requirements.
+
+---
+
+## Security Principles Applied
+
+### Least Privilege
+
+Access is restricted to only the resources required by the application.
+
+### Separation of Duties
+
+The Lambda function receives only operational permissions and does not have administrative privileges.
+
+### Encryption
+
+Sensitive data is protected using AWS KMS encryption.
+
+### Auditability
+
+CloudWatch and CloudTrail provide visibility into all application activity.
+
+### Compliance
+
+The policy supports controls commonly associated with:
+
+- PCI DSS
+- GLBA
+- SOX
+
+---
+
+## Security Benefits
+
+- Reduces attack surface
+- Prevents unauthorized access
+- Protects sensitive financial information
+- Supports regulatory compliance
+- Enables monitoring and auditing
+- Enforces secure access management
+
+---
+
+## Architecture Integration
+
+The IAM role is attached to the AWS Lambda function and enables secure interaction with:
+
+- Amazon DynamoDB
+- Amazon S3
+- AWS Step Functions
+- AWS KMS
+- Amazon CloudWatch
+
+The role serves as the primary security boundary between application logic and AWS resources.
